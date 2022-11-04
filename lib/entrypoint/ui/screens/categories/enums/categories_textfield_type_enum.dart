@@ -1,0 +1,1 @@
+enum CategoriesTextFielTypeEnum { name, description }
