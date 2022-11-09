@@ -1,6 +1,8 @@
-import 'package:app_mercury_flutter/entrypoint/application/config/index.dart';
-import 'package:app_mercury_flutter/entrypoint/ui/shared/index.dart';
 import 'package:flutter/material.dart';
+import 'package:app_mercury_flutter/entrypoint/application/config/index.dart';
+// Shared
+import 'package:app_mercury_flutter/entrypoint/ui/shared/index.dart'
+    show ButtonMainActionPositiveWidget;
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({Key? key}) : super(key: key);
@@ -23,19 +25,17 @@ class _HomeScreenState extends State<HomeScreen> {
               mainAxisAlignment: MainAxisAlignment.center,
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
-                Padding(
-                  padding: const EdgeInsets.only(top: AppStyles.paddingXL),
-                  child: Container(
-                    child: const Text(
-                      'Bienvenido',
-                      textAlign: TextAlign.center,
-                    ),
+                const Padding(
+                  padding: EdgeInsets.only(top: AppStyles.paddingXL),
+                  child: Text(
+                    'Bienvenido',
+                    textAlign: TextAlign.center,
                   ),
                 ),
                 const SizedBox(height: 30),
                 Padding(
                   padding: const EdgeInsets.all(8.0),
-                  child: BotonAccionPrincipalPositivaWidget(
+                  child: ButtonMainActionPositiveWidget(
                     text: 'Categorias',
                     onPressed: () => _navegarCategory(),
                   ),

@@ -15,7 +15,5 @@ void main() {
   var appSettings =
       AppSettings(baseUrl: EnvConstants.apiBase, mode: AppCompilationMode.main);
   Application().appSettings = appSettings;
-  print('release mode ');
-
   runApp(const MercuryApp());
 }

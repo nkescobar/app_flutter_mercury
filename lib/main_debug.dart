@@ -15,7 +15,5 @@ void main() {
   var appSettings = AppSettings(
       baseUrl: EnvConstants.apiBase, mode: AppCompilationMode.debug);
   Application().appSettings = appSettings;
-
-  print('debug mode ');
   runApp(const MercuryApp());
 }

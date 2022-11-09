@@ -1,21 +1,21 @@
 import 'package:flutter/material.dart';
 
 class AppColors {
-  static const int _primarColorValue = 0xFF003F85;
+  static const int _primarColorValue = 0xFFCC0000;
   static const int _accentColorValue = 0xFF5479FF;
   static const int _secondaryColorValue = 0xFFF57E31;
 
   static const Map<int, Color> primaryColorCodes = {
-    50: Color(0xFFE0E8F0),
-    100: Color(0xFFB3C5DA),
-    200: Color(0xFF809FC2),
-    300: Color(0xFF4D79AA),
-    400: Color(0xFF265C97),
+    50: Color(0xFFF9E0E0),
+    100: Color(0xFFF0B3B3),
+    200: Color(0xFFE68080),
+    300: Color(0xFFDB4D4D),
+    400: Color(0xFFD42626),
     500: Color(_primarColorValue),
-    600: Color(0xFF00397D),
-    700: Color(0xFF003172),
-    800: Color(0xFF002968),
-    900: Color(0xFF001B55),
+    600: Color(0xFFC70000),
+    700: Color(0xFFC00000),
+    800: Color(0xFFB90000),
+    900: Color(0xFFAD0000),
   };
 
   static const Map<int, Color> accentColorCodes = {

@@ -15,7 +15,5 @@ void main() {
   var appSettings = AppSettings(
       baseUrl: EnvConstants.apiBase, mode: AppCompilationMode.profile);
   Application().appSettings = appSettings;
-  print('profile mode ');
-
   runApp(const MercuryApp());
 }

@@ -1,15 +1,19 @@
-import 'package:app_mercury_flutter/entrypoint/application/config/app_colors.dart';
-import 'package:app_mercury_flutter/entrypoint/ui/shared/widgets/progress_indicator_widget/index.dart';
 import 'package:flutter/material.dart';
 
-// Widgets Compartidos
+// Configurations
+import 'package:app_mercury_flutter/entrypoint/application/config/index.dart'
+    show AppColors;
 
-class BotonAccionPrincipalPositivaWidget extends StatelessWidget {
+// Widgets Compartidos
+import 'package:app_mercury_flutter/entrypoint/ui/shared/index.dart'
+    show ProgressIndicatorWidget;
+
+class ButtonActionSecundaryWidget extends StatelessWidget {
   final String text;
   final VoidCallback? onPressed;
   final bool isLoading;
 
-  const BotonAccionPrincipalPositivaWidget({
+  const ButtonActionSecundaryWidget({
     Key? key,
     required this.text,
     required this.onPressed,
@@ -28,16 +32,16 @@ class BotonAccionPrincipalPositivaWidget extends StatelessWidget {
             if (states.contains(MaterialState.disabled)) {
               return AppColors.greyColor;
             }
-            return AppColors.primaryColor;
+            return AppColors.secondaryColor;
           }),
           overlayColor: MaterialStateProperty.resolveWith<Color>((states) {
             if (states.contains(MaterialState.pressed)) {
-              return AppColors.primaryColor.shade900;
+              return AppColors.secondaryColor.shade900;
             }
             return Colors.transparent;
           }),
         ),
-        // ignore: sort_child_properties_last
+        onPressed: onPressed,
         child: isLoading
             ? const SizedBox(
                 width: 25.0,
@@ -59,7 +63,6 @@ class BotonAccionPrincipalPositivaWidget extends StatelessWidget {
                           fontWeight: FontWeight.normal,
                         ),
               ),
-        onPressed: onPressed,
       ),
     );
   }
