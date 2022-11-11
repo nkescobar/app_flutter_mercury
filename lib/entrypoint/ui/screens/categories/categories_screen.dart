@@ -1,3 +1,4 @@
+import 'package:app_mercury_flutter/entrypoint/ui/screens/categories/enums/categories_textfield_type_enum.dart';
 import 'package:flutter/material.dart';
 // Configurations
 import 'package:app_mercury_flutter/entrypoint/application/config/index.dart'
@@ -14,7 +15,7 @@ import 'package:app_mercury_flutter/core/index.dart'
 import 'package:app_mercury_flutter/entrypoint/blocs/categories/index.dart'
     show CategoryBloc;
 import 'package:app_mercury_flutter/entrypoint/ui/screens/categories/widgets/index.dart'
-    show CategoryFormWidget;
+    show CategoryFormWidget, CategoryListWidget;
 
 class CategoriesScreen extends StatefulWidget {
   const CategoriesScreen({Key? key}) : super(key: key);
@@ -37,7 +38,8 @@ class _CategoriesScreenState
 
   @override
   CategoryBloc getBlocInstance() {
-    return CategoryBloc(Injector().provideAddCategoryUseCase());
+    return CategoryBloc(Injector().provideAddCategoryUseCase(),
+        Injector().provideGetCategoriesUseCase());
   }
 
   @override
@@ -56,7 +58,7 @@ class _CategoriesScreenState
                 ),
                 child: Column(
                     crossAxisAlignment: CrossAxisAlignment.center,
-                    mainAxisAlignment: MainAxisAlignment.center,
+                    mainAxisSize: MainAxisSize.max,
                     children: [
                       const CategoryFormWidget(),
                       Padding(
@@ -78,6 +80,18 @@ class _CategoriesScreenState
                               );
                             }),
                       ),
+                      StreamBuilder<bool>(
+                          stream: bloc!.$loadingCategory,
+                          builder: (context, snapshotLoading) {
+                            if (snapshotLoading.hasData &&
+                                snapshotLoading.data == false) {
+                              return CategoryListWidget(
+                                categories: bloc!.$categories,
+                              );
+                            } else {
+                              return const CircularProgressIndicator();
+                            }
+                          }),
                     ]),
               ),
             ],
@@ -96,6 +110,9 @@ class _CategoriesScreenState
                 .compareTo(StatusEnum.success.toString()) ==
             0) {
       print('TODO MELO');
+      bloc!.$streams[CategoriesTextFielTypeEnum.name]!.onChangeField('');
+      bloc!.$streams[CategoriesTextFielTypeEnum.description]!.onChangeField('');
+      bloc!.getCategories();
     } else {
       print('Hubo un error ');
     }

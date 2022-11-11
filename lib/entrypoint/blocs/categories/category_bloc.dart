@@ -13,10 +13,11 @@ import 'package:app_mercury_flutter/entrypoint/ui/shared/index.dart'
     show FieldStream, RequiredValidator, ValidateAllStreamsHaveDataAndNoErrors;
 // Use cases
 import 'package:app_mercury_flutter/domain/use_cases/index.dart'
-    show AddCategoryUseCase;
+    show AddCategoryUseCase, GetCategoriesUseCase;
 
 class CategoryBloc with Bloc {
   final AddCategoryUseCase _addCategoryUseCase;
+  final GetCategoriesUseCase _getCategoriesUseCase;
 
   late Map<CategoriesTextFielTypeEnum, FieldStream> $streams;
   late List<StreamSubscription> subscriptions;
@@ -28,8 +29,12 @@ class CategoryBloc with Bloc {
   ValidateAllStreamsHaveDataAndNoErrors? _validateAllStreamsHaveDataAndNoErrors;
   Stream<bool>? get $formularioValido =>
       _validateAllStreamsHaveDataAndNoErrors?.status;
+  BehaviorSubject<List<Category>> _categoriesController =
+      BehaviorSubject<List<Category>>();
+  ValueStream<List<Category>> get $categories => _categoriesController.stream;
 
-  CategoryBloc(this._addCategoryUseCase) {
+  CategoryBloc(this._addCategoryUseCase, this._getCategoriesUseCase) {
+    _categoriesController = BehaviorSubject<List<Category>>();
     subscriptions = [];
   }
 
@@ -38,6 +43,7 @@ class CategoryBloc with Bloc {
     _loadStreams();
     _loadValidators();
     _listenValidateAllStreamsHaveDataAndNoErrors();
+    _getCategories();
   }
 
   @override
@@ -46,6 +52,7 @@ class CategoryBloc with Bloc {
     _cancelSuscriptions();
     _disposeStreams();
     _closeLoadingCategory();
+    _closeCategories();
   }
 
   void _loadStreams() {
@@ -74,6 +81,10 @@ class CategoryBloc with Bloc {
 
   void _closeLoadingCategory() {
     _loadingCategory.close();
+  }
+
+  void _closeCategories() {
+    _categoriesController.close();
   }
 
   void _disposeStreams() {
@@ -128,6 +139,7 @@ class CategoryBloc with Bloc {
     try {
       Category params = await _getCategory();
       final respuesta = await _addCategoryUseCase(params);
+
       return ResultadoUI.success(respuesta);
     } catch (ex) {
       log(ex.toString(), name: '_addCategory');
@@ -146,5 +158,23 @@ class CategoryBloc with Bloc {
     params.description =
         $streams[CategoriesTextFielTypeEnum.description]!.fieldController.value;
     return params;
+  }
+
+  Future<void> getCategories() async {
+    _showLoadingCategory();
+    await _getCategories();
+    _hideLoadingCategory();
+  }
+
+  Future<void> _getCategories() async {
+    try {
+      final respuesta = await _getCategoriesUseCase();
+      verifySinkAddStream(_categoriesController, () {
+        _categoriesController.value = respuesta;
+      });
+    } catch (ex) {
+      log(ex.toString(), name: '_getCategories');
+      if (ex is CustomErrorResult) {}
+    }
   }
 }

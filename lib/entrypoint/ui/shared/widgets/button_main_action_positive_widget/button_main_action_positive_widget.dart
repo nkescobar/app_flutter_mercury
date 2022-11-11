@@ -27,22 +27,24 @@ class ButtonMainActionPositiveWidget extends StatelessWidget {
       ),
       child: TextButton(
         style: ButtonStyle(
-            backgroundColor: MaterialStateProperty.resolveWith<Color>((states) {
-              if (states.contains(MaterialState.disabled)) {
-                return AppColors.greyColor;
-              }
-              return AppColors.primaryColor;
-            }),
-            overlayColor: MaterialStateProperty.resolveWith<Color>((states) {
-              if (states.contains(MaterialState.pressed)) {
-                return AppColors.primaryColor.shade900;
-              }
-              return Colors.transparent;
-            }),
-            shape: MaterialStateProperty.all<RoundedRectangleBorder>(
-                RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(12.0),
-                    side: BorderSide(color: AppColors.primaryColor.shade900)))),
+          backgroundColor: MaterialStateProperty.resolveWith<Color>((states) {
+            if (states.contains(MaterialState.disabled)) {
+              return AppColors.greyColor;
+            }
+            return AppColors.primaryColor;
+          }),
+          overlayColor: MaterialStateProperty.resolveWith<Color>((states) {
+            if (states.contains(MaterialState.pressed)) {
+              return AppColors.primaryColor.shade900;
+            }
+            return Colors.transparent;
+          }),
+          shape: MaterialStateProperty.all<RoundedRectangleBorder>(
+            RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(12.0),
+            ),
+          ),
+        ),
         // ignore: sort_child_properties_last
         child: isLoading
             ? const SizedBox(

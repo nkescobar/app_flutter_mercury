@@ -34,79 +34,99 @@ class _CategoryFormWidgetState extends BaseFormStateBloc<CategoryFormWidget,
 
   @override
   CategoryBloc getBlocInstance() {
-    return CategoryBloc(Injector().provideAddCategoryUseCase());
+    return CategoryBloc(
+      Injector().provideAddCategoryUseCase(),
+      Injector().provideGetCategoriesUseCase(),
+    );
   }
 
   @override
   Widget build(BuildContext context) {
-    return Column(
-      children: [
-        TextFieldStreamWidget(
-          stream: bloc!.$streams[CategoriesTextFielTypeEnum.name]!.$streamField
-              as Stream<String>,
-          hintText: 'Nombre categoria',
-          textCapitalization: TextCapitalization.characters,
-          controller: textEditingControllers[CategoriesTextFielTypeEnum.name],
-          focusNode: focusNodes[CategoriesTextFielTypeEnum.name],
-          onSubmitted: (valor) {
-            fieldFocusChange(
-              context,
-              focusNodes[CategoriesTextFielTypeEnum.name],
-              focusNodes[CategoriesTextFielTypeEnum.description],
-            );
-            bloc!.$streams[CategoriesTextFielTypeEnum.name]!
-                .onChangeField(valor);
-          },
-          onChanged: (valor) => bloc!.$streams[CategoriesTextFielTypeEnum.name]!
-              .onChangeField(valor),
-          prefixIcon: Icon(
-            Icons.account_balance_wallet,
-            color: AppColors.secondaryColor.shade500,
-          ),
-          suffixIcon: IconButtonGenericWidget(
-            icon: Icons.clear,
-            onPressed: () {
-              textEditingControllers[CategoriesTextFielTypeEnum.name]!.clear();
-              bloc!.$streams[CategoriesTextFielTypeEnum.name]!
-                  .onChangeField('');
-            },
-          ),
-        ),
-        TextFieldStreamWidget(
-          stream: bloc!.$streams[CategoriesTextFielTypeEnum.description]!
-              .$streamField as Stream<String>,
-          hintText: 'Descripcion',
-          textCapitalization: TextCapitalization.characters,
-          controller:
-              textEditingControllers[CategoriesTextFielTypeEnum.description],
-          focusNode: focusNodes[CategoriesTextFielTypeEnum.description],
-          onSubmitted: (valor) {
-            fieldFocusChange(
-              context,
-              focusNodes[CategoriesTextFielTypeEnum.description],
-              focusNodes[null],
-            );
-            bloc!.$streams[CategoriesTextFielTypeEnum.description]!
-                .onChangeField(valor);
-          },
-          onChanged: (valor) => bloc!
-              .$streams[CategoriesTextFielTypeEnum.description]!
-              .onChangeField(valor),
-          prefixIcon: Icon(
-            Icons.note,
-            color: AppColors.secondaryColor.shade500,
-          ),
-          suffixIcon: IconButtonGenericWidget(
-            icon: Icons.clear,
-            onPressed: () {
-              textEditingControllers[CategoriesTextFielTypeEnum.description]!
-                  .clear();
-              bloc!.$streams[CategoriesTextFielTypeEnum.description]!
-                  .onChangeField('');
-            },
-          ),
-        ),
-      ],
-    );
+    return StreamBuilder<bool>(
+        stream: bloc!.$loadingCategory,
+        builder: (context, snapshot) {
+          print('loading ${snapshot.data}');
+          if (snapshot.hasData && snapshot.data == false) {
+            _restartFields();
+          }
+          return Column(
+            children: [
+              TextFieldStreamWidget(
+                stream: bloc!.$streams[CategoriesTextFielTypeEnum.name]!
+                    .$streamField as Stream<String>,
+                hintText: 'Nombre categoria',
+                textCapitalization: TextCapitalization.characters,
+                controller:
+                    textEditingControllers[CategoriesTextFielTypeEnum.name],
+                focusNode: focusNodes[CategoriesTextFielTypeEnum.name],
+                onSubmitted: (valor) {
+                  fieldFocusChange(
+                    context,
+                    focusNodes[CategoriesTextFielTypeEnum.name],
+                    focusNodes[CategoriesTextFielTypeEnum.description],
+                  );
+                  bloc!.$streams[CategoriesTextFielTypeEnum.name]!
+                      .onChangeField(valor);
+                },
+                onChanged: (valor) => bloc!
+                    .$streams[CategoriesTextFielTypeEnum.name]!
+                    .onChangeField(valor),
+                prefixIcon: Icon(
+                  Icons.account_balance_wallet,
+                  color: AppColors.secondaryColor.shade500,
+                ),
+                suffixIcon: IconButtonGenericWidget(
+                  icon: Icons.clear,
+                  onPressed: () {
+                    textEditingControllers[CategoriesTextFielTypeEnum.name]!
+                        .clear();
+                    bloc!.$streams[CategoriesTextFielTypeEnum.name]!
+                        .onChangeField('');
+                  },
+                ),
+              ),
+              TextFieldStreamWidget(
+                stream: bloc!.$streams[CategoriesTextFielTypeEnum.description]!
+                    .$streamField as Stream<String>,
+                hintText: 'Descripcion',
+                textCapitalization: TextCapitalization.characters,
+                controller: textEditingControllers[
+                    CategoriesTextFielTypeEnum.description],
+                focusNode: focusNodes[CategoriesTextFielTypeEnum.description],
+                onSubmitted: (valor) {
+                  fieldFocusChange(
+                    context,
+                    focusNodes[CategoriesTextFielTypeEnum.description],
+                    focusNodes[null],
+                  );
+                  bloc!.$streams[CategoriesTextFielTypeEnum.description]!
+                      .onChangeField(valor);
+                },
+                onChanged: (valor) => bloc!
+                    .$streams[CategoriesTextFielTypeEnum.description]!
+                    .onChangeField(valor),
+                prefixIcon: Icon(
+                  Icons.note,
+                  color: AppColors.secondaryColor.shade500,
+                ),
+                suffixIcon: IconButtonGenericWidget(
+                  icon: Icons.clear,
+                  onPressed: () {
+                    textEditingControllers[
+                            CategoriesTextFielTypeEnum.description]!
+                        .clear();
+                    bloc!.$streams[CategoriesTextFielTypeEnum.description]!
+                        .onChangeField('');
+                  },
+                ),
+              ),
+            ],
+          );
+        });
+  }
+
+  _restartFields() {
+    textEditingControllers[CategoriesTextFielTypeEnum.name]!.clear();
+    textEditingControllers[CategoriesTextFielTypeEnum.description]!.clear();
   }
 }

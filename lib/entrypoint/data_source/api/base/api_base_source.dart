@@ -50,10 +50,14 @@ class ApiSource {
       if (!isConnected) {
         return Resultado<T>.error(message: ApiBaseStrings.internetNotAvailable);
       }
+
+      print('get ---------');
       headers = getHeaders(headers);
       var response = await client
           .get(Uri.parse(url), headers: headers)
           .timeout(AppConstants.DURACION_CONSUMO_APIS);
+      print('get ---------$response');
+
       return await _manageResponse<T>(response, url, mapperFunction,
           HttpMethodsEnum.get, null, typeResponse);
     } catch (ex) {

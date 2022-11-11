@@ -1,4 +1,5 @@
-import 'package:app_mercury_flutter/domain/index.dart';
+import 'package:app_mercury_flutter/domain/index.dart'
+    show AddCategoryUseCase, GetCategoriesUseCase;
 import 'package:app_mercury_flutter/entrypoint/di/repository_injector.dart';
 
 class Injector {
@@ -14,5 +15,10 @@ class Injector {
   AddCategoryUseCase provideAddCategoryUseCase() {
     return AddCategoryUseCase(
         RepositoryInjector().provideAddCategoryRepository());
+  }
+
+  GetCategoriesUseCase provideGetCategoriesUseCase() {
+    return GetCategoriesUseCase(
+        RepositoryInjector().provideGetCategoriesRepository());
   }
 }

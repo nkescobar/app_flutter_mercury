@@ -18,4 +18,20 @@ class CategoryMapper {
     categoryRemoteModel.descripcion = category.description;
     return categoryRemoteModel;
   }
+
+  static List<Category> fromEntityList(List<CategoryModel> categoriesModel) {
+    List<Category> categories = [];
+    for (var item in categoriesModel) {
+      categories.add(fromEntity(item));
+    }
+    return categories;
+  }
+
+  static List<CategoryModel> fromModelList(List<Category> categories) {
+    List<CategoryModel> categoriesModel = [];
+    for (var item in categories) {
+      categoriesModel.add(fromModel(item));
+    }
+    return categoriesModel;
+  }
 }
