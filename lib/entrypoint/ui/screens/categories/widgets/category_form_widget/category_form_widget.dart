@@ -45,7 +45,6 @@ class _CategoryFormWidgetState extends BaseFormStateBloc<CategoryFormWidget,
     return StreamBuilder<bool>(
         stream: bloc!.$loadingCategory,
         builder: (context, snapshot) {
-          print('loading ${snapshot.data}');
           if (snapshot.hasData && snapshot.data == false) {
             _restartFields();
           }
@@ -55,7 +54,7 @@ class _CategoryFormWidgetState extends BaseFormStateBloc<CategoryFormWidget,
                 stream: bloc!.$streams[CategoriesTextFielTypeEnum.name]!
                     .$streamField as Stream<String>,
                 hintText: 'Nombre categoria',
-                textCapitalization: TextCapitalization.characters,
+                textCapitalization: TextCapitalization.words,
                 controller:
                     textEditingControllers[CategoriesTextFielTypeEnum.name],
                 focusNode: focusNodes[CategoriesTextFielTypeEnum.name],
@@ -89,14 +88,14 @@ class _CategoryFormWidgetState extends BaseFormStateBloc<CategoryFormWidget,
                 stream: bloc!.$streams[CategoriesTextFielTypeEnum.description]!
                     .$streamField as Stream<String>,
                 hintText: 'Descripcion',
-                textCapitalization: TextCapitalization.characters,
+                textCapitalization: TextCapitalization.none,
                 controller: textEditingControllers[
                     CategoriesTextFielTypeEnum.description],
                 focusNode: focusNodes[CategoriesTextFielTypeEnum.description],
                 onSubmitted: (valor) {
                   fieldFocusChange(
                     context,
-                    focusNodes[CategoriesTextFielTypeEnum.description],
+                    focusNodes[null],
                     focusNodes[null],
                   );
                   bloc!.$streams[CategoriesTextFielTypeEnum.description]!

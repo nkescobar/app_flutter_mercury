@@ -35,6 +35,7 @@ class _MercuryAppState extends State<MercuryApp> {
           GlobalWidgetsLocalizations.delegate,
           GlobalCupertinoLocalizations.delegate,
         ],
+
         // Lenguajes soportados por flutter y que nos permite
         // aplicarlo a cualquier componente, como el de la fecha
         supportedLocales: const [

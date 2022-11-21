@@ -43,7 +43,7 @@ class CategoryBloc with Bloc {
     _loadStreams();
     _loadValidators();
     _listenValidateAllStreamsHaveDataAndNoErrors();
-    _getCategories();
+    getCategories();
   }
 
   @override

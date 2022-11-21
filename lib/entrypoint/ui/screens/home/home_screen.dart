@@ -3,6 +3,7 @@ import 'package:app_mercury_flutter/entrypoint/application/config/index.dart';
 // Shared
 import 'package:app_mercury_flutter/entrypoint/ui/shared/index.dart'
     show ButtonMainActionPositiveWidget;
+import './i18n/home.i18n.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({Key? key}) : super(key: key);
@@ -16,7 +17,7 @@ class _HomeScreenState extends State<HomeScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Inicio'),
+        title: Text(HomeStrings.home.i18n),
       ),
       body: SafeArea(
         child: SingleChildScrollView(
@@ -25,10 +26,10 @@ class _HomeScreenState extends State<HomeScreen> {
               mainAxisAlignment: MainAxisAlignment.center,
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
-                const Padding(
-                  padding: EdgeInsets.only(top: AppStyles.paddingXL),
+                Padding(
+                  padding: const EdgeInsets.only(top: AppStyles.paddingXL),
                   child: Text(
-                    'Bienvenido',
+                    HomeStrings.welcome.i18n,
                     textAlign: TextAlign.center,
                   ),
                 ),
@@ -36,8 +37,16 @@ class _HomeScreenState extends State<HomeScreen> {
                 Padding(
                   padding: const EdgeInsets.all(8.0),
                   child: ButtonMainActionPositiveWidget(
-                    text: 'Categorias',
+                    text: HomeStrings.categories.i18n,
                     onPressed: () => _navegarCategory(),
+                  ),
+                ),
+                const SizedBox(height: 30),
+                Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: ButtonMainActionPositiveWidget(
+                    text: HomeStrings.users.i18n,
+                    onPressed: () => _navegarUser(),
                   ),
                 ),
               ],
@@ -50,5 +59,9 @@ class _HomeScreenState extends State<HomeScreen> {
 
   void _navegarCategory() {
     Navigator.pushNamed(context, AppRoutes.categoriesRoute);
+  }
+
+  void _navegarUser() {
+    Navigator.pushNamed(context, AppRoutes.usersRoute);
   }
 }

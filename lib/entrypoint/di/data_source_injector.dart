@@ -9,6 +9,10 @@ import 'package:app_mercury_flutter/data/api_sources/index.dart'
     show AddCategoryApiSource, GetCategoriesApiSource;
 import 'package:app_mercury_flutter/entrypoint/application/config/index.dart'
     show Application;
+import 'package:app_mercury_flutter/entrypoint/data_source/database/index.dart'
+    show UserDBSourceImpl;
+import 'package:app_mercury_flutter/data/db_sources/index.dart'
+    show AddUserDBSource, GetUsersDBSource;
 
 class DataSourceInjector {
   static DataSourceInjector? _singleton;
@@ -18,6 +22,14 @@ class DataSourceInjector {
   }
 
   DataSourceInjector._();
+
+  AddUserDBSource provideAddUserDBSource() {
+    return UserDBSourceImpl();
+  }
+
+  GetUsersDBSource provideGetUsersDBSource() {
+    return UserDBSourceImpl();
+  }
 
   AddCategoryApiSource provideAddCategoryApiSource() {
     return AddCategoryApiSourceAdapter(

@@ -1,4 +1,3 @@
-import 'package:app_mercury_flutter/entrypoint/ui/screens/categories/enums/categories_textfield_type_enum.dart';
 import 'package:flutter/material.dart';
 // Configurations
 import 'package:app_mercury_flutter/entrypoint/application/config/index.dart'
@@ -109,9 +108,6 @@ class _CategoriesScreenState
                 .toString()
                 .compareTo(StatusEnum.success.toString()) ==
             0) {
-      print('TODO MELO');
-      bloc!.$streams[CategoriesTextFielTypeEnum.name]!.onChangeField('');
-      bloc!.$streams[CategoriesTextFielTypeEnum.description]!.onChangeField('');
       bloc!.getCategories();
     } else {
       print('Hubo un error ');

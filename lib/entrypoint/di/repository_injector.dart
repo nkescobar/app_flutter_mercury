@@ -1,7 +1,15 @@
 import 'package:app_mercury_flutter/data/repositories/index.dart'
-    show AddCategoryRepositoryAdapter, GetCategoriesRepositoryAdapter;
+    show
+        AddCategoryRepositoryAdapter,
+        AddUserRepositoryAdapter,
+        GetCategoriesRepositoryAdapter,
+        GetUsersRepositoryAdapter;
 import 'package:app_mercury_flutter/domain/index.dart'
-    show AddCategoryRepository, GetCategoriesRepository;
+    show
+        AddCategoryRepository,
+        AddUserRepository,
+        GetCategoriesRepository,
+        GetUsersRepository;
 import 'package:app_mercury_flutter/entrypoint/di/data_source_injector.dart';
 
 class RepositoryInjector {
@@ -13,6 +21,18 @@ class RepositoryInjector {
   }
 
   RepositoryInjector._();
+
+  AddUserRepository provideAddUserRepository() {
+    return AddUserRepositoryAdapter(
+      DataSourceInjector().provideAddUserDBSource(),
+    );
+  }
+
+  GetUsersRepository provideGetUsersRepository() {
+    return GetUsersRepositoryAdapter(
+      DataSourceInjector().provideGetUsersDBSource(),
+    );
+  }
 
   AddCategoryRepository provideAddCategoryRepository() {
     return AddCategoryRepositoryAdapter(

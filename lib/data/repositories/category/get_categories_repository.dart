@@ -17,7 +17,6 @@ class GetCategoriesRepositoryAdapter implements GetCategoriesRepository {
 
   @override
   Future<List<Category>> getCategories() async {
-    print('repositorio ');
     Resultado resultadoApi = await apiSource.getCategories();
 
     if (ValidateStatusEnum.validateStatus(

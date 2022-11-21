@@ -14,7 +14,9 @@ class CategoryListWidget extends StatelessWidget {
     return StreamBuilder<List<Category>>(
         stream: categories,
         builder: (context, snapshot) {
-          if (snapshot.hasData && snapshot.data != null) {
+          if (snapshot.hasData &&
+              snapshot.data != null &&
+              snapshot.data!.isNotEmpty == true) {
             var categories = snapshot.data!;
             categories.sort((a, b) => b.id!.compareTo(a.id!));
             return SizedBox(
@@ -35,7 +37,7 @@ class CategoryListWidget extends StatelessWidget {
               ),
             );
           } else {
-            return Container();
+            return const Center(child: Text('No se encuentran registros'));
           }
         });
   }
