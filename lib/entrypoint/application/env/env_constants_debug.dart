@@ -1,3 +1,3 @@
 class EnvConstants {
-  static const apiBase = 'http://10.174.59.184:8080/v1/';
+  static const apiBase = 'http://54.210.44.161:8080/v1/';
 }
